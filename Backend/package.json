@@ -28,7 +28,8 @@
     "params": "^0.1.1",
     "path": "^0.12.7",
     "req-flash": "^0.0.3",
-    "sequelize": "^6.31.1"
+    "sequelize": "^6.31.1",
+    "stripe": "^12.4.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.22"

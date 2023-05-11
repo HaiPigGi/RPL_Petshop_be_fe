@@ -10,6 +10,7 @@ import Register from './components/Register';
 import EditProd from './components/pages/admin/editProd';
 import CreateProd from './components/pages/admin/createProd';
 import productLists from './components/pages/admin/productList';
+import PaymentPage from './components/pages/transaksi/Paypage';
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
           <Route path="/admin" component={productLists} />
           <Route path="/adminCret" component={CreateProd} />
           <Route path="/edit/:id" component={EditProd} />
+          <Route path="/payment/:id" component={PaymentPage} />
         </Switch>
       </div>
     </Router>

@@ -1,45 +1,54 @@
-import React from 'react';
-import ProductCard from './ProductCard';
-import bg1 from '../public/kucing1.jpg';
-import bg2 from '../public/kucing2.jpg';
-import bg3 from '../public/kucing3.jpg';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { Link } from "react-router-dom";
 
-class HomeProduct extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      products: [
-        {
-          id: 1,
-          name: 'Cute Cat 1',
-          imageUrl: bg1,
-        },
-        {
-          id: 2,
-          name: 'Cute Cat 2',
-          imageUrl: bg2,
-        },
-        {
-          id: 3,
-          name: 'Cute Cat 3',
-          imageUrl: bg3,
-        },
-      ],
-    };
-  }
+const HomeProduct = () => {
+  const [products, setProducts] = useState([]);
 
-  render() {
-    return (
-      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-        <h2>News</h2>
-        <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}>
-          {this.state.products.map((product) => (
-            <ProductCard key={product.id} product={product} />
-          ))}
-        </div>
+  useEffect(() => {
+    getProduct();
+  }, []);
+
+  const getProduct = async () => {
+    try {
+      const response = await axios.get("http://localhost:5000/product");
+      setProducts(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+
+  return (
+    <div className="container mt-5">
+      <div className="columns is-multiline mt-2">
+        {products.map((product) => (
+          <div className="column is-one-quarter" key={product.id}>
+            <div className="card">
+              <div className="card-image">
+                <figure className="image is-4by3">
+                  <img src={product.url} alt="Image" />
+                </figure>
+              </div>
+              <div className="card-content">
+                <div className="media">
+                  <div className="media-content">
+                    <p className="title is-4">{product.name}</p>
+                  </div>
+                </div>
+              </div>
+
+              <footer className="card-footer">
+                <Link to={`payment/${product.id}`} className="card-footer-item">
+                  Buy
+                </Link>
+              </footer>
+            </div>
+          </div>
+        ))}
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
 
 export default HomeProduct;
